@@ -40,7 +40,7 @@ $(document).ready(function() {
 
 // ======== FUNCTIONS ========
 
-	// Prompting user to start quiz 
+	// Adding a button in order to start the quiz
 	function startButton(message) {
 		$("#quiz").append("<button id='start-btn'>" + message + "</button>");
 	}
@@ -57,7 +57,7 @@ $(document).ready(function() {
 		quizCounter = 0; 
 		answeredCorrectly = false;
 
-		// Displays first question
+		// Display first question
 		displayQuestion(quiz[quizCounter]);
 
 	}
@@ -70,27 +70,24 @@ $(document).ready(function() {
 		// Empty quiz section
 		$("#quiz").empty();
 
-		// Create a div
+		// Add the time remaining, question, and answer options to the quiz section
 		var questionDiv = $("<div>");
 
-		// Append time remaining and question
 		questionDiv.append("<h2>Time Remaining: <span id='time-remaining'>" + timer + "</span> seconds</h2>");
 		questionDiv.append("<h2>" + questionObj.question +"</h2>");
 
-		// Append answer options
 		questionObj.options.forEach(function(option) {
 			questionDiv.append("<div class='answer-options' value='" + option + 
 				"'>" + option + "</div>");
 		});
 
-		// Add the question information to the quiz section
 		$("#quiz").append(questionDiv);
 
 		// After every second, update the timer
 		timerId = setInterval(timerCountdown, 1000);
 	}
 
-	// Checks if user's response is correct
+	// Checks user's answer
 	function checkAnswer() {
 		// Grab user's answer
 		var userAnswer = $(this).attr("value");
@@ -119,9 +116,8 @@ $(document).ready(function() {
 		// Empty the quiz section
 		$("#quiz").empty();
 
-		// Create a div
-		var answerDiv = $("<div>");
-		var message = "Nope"; // the message shown to user
+		// The result message shown to the user 
+		var message = "Nope";
 
 		// If user ran out of time, set message to "Out of Time!"
 		if (timer === 0) {
@@ -132,7 +128,9 @@ $(document).ready(function() {
 			message = "Correct!"
 		}
 
-		// Append time remaining and message
+		// Add time remaining, message, and image to the quiz section
+		var answerDiv = $("<div>");
+
 		answerDiv.append("<h2>Time Remaining: <span id='time-remaining'>" + timer + "</span> seconds</h2>");
 		answerDiv.append("<h2>" + message + "</h2>");
 
@@ -142,29 +140,28 @@ $(document).ready(function() {
 			answerDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
 		}
 		
-		// Append image
 		answerDiv.append(questionObj.image);
 
 		// Add answer information to quiz section
 		$("#quiz").append(answerDiv);
 
-		// If we have reached the end of our questions...
+		// If we have reached the end of our questions, display quiz results
 		if (quizCounter === quiz.length - 1) {
 			setTimeout(endQuiz, answerSeconds * 1000);
 		}
-		// If we still have questions left to answer...
+		// If we still have questions left to answer, display next question
 		else {
 			quizCounter++;
 
-			// Display the next question after certain seconds
-				// The third parameter is the argument we are passing to displayQuestion
-				// Turning answerSeconds to milliseconds
+			// The third parameter is the argument we are passing to displayQuestion
+			// Turning answerSeconds to milliseconds
 			setTimeout(displayQuestion, answerSeconds * 1000, quiz[quizCounter]);
 		}
 	}
 
 	// Timer functionality
 	function timerCountdown() {
+
 		timer--;
 
 		// If time runs out, display the answer
@@ -184,7 +181,7 @@ $(document).ready(function() {
 		// Empty quiz section
 		$("#quiz").empty();
 
-		// Create div
+		// Add correct, incorrect, and unanswered questions to the quiz section
 		var endQuizDiv = $("<div>");
 
 		// Append quiz results
@@ -193,12 +190,10 @@ $(document).ready(function() {
 		endQuizDiv.append("<p>Incorrect Answers: " + wrongQuestions + "</p>");
 		endQuizDiv.append("<p>Unaswered Answers: " + unansweredQuestions + "</p>");
 
-		// Add information to quiz section
 		$("#quiz").append(endQuizDiv);
 
 		// Append start over button
 		startButton("START OVER?");
-
 
 	}
 
