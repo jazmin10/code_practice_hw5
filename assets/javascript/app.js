@@ -134,7 +134,20 @@ $(document).ready(function() {
 		// Append image
 		questionDiv.append(questionObj.image);
 
+		// Add answer information to quiz section
 		$("#quiz").append(questionDiv);
+
+		// If we have reached the end of our questions...
+		if (quizCounter === quiz.length - 1) {
+			console.log("End of quiz");
+		}
+		// If we still have questions left to answer...
+		else {
+			quizCounter++;
+
+			// Display the next question after certain seconds
+			setTimeout(displayQuestion, 3000, quiz[quizCounter]);
+		}
 	}
 
 // ======== MAIN PROCEDURES ========
