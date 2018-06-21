@@ -86,23 +86,38 @@ $(document).ready(function() {
 
 	// Checks if user's response is correct
 	function checkAnswer() {
-		var userAnswer = $(this).attr("value")
+		var userAnswer = $(this).attr("value");
 		
-		// if (userAnswer === quiz[quizCounter].)
+		if (userAnswer === quiz[quizCounter].correctAnswer) {
+			answeredCorrectly = true;
+		}
+		else {
+			answeredCorrectly = false;
+		}
+
+		displayAnswer(quiz[quizCounter]);
+
 	}
 
 	// Displays answer to user
-	function displayAnswer() {
+	function displayAnswer(questionObj) {
 		// Empty the quiz section
 		$("#quiz").empty();
 
 		var questionDiv = $("<div>");
-		var message = "Out of time!";
+		// var message = "";
+
+		// if (timer === 0) {
+		// 	message = "Out of Time!";
+		// }
+		// else if (answeredCorrectly) {
+		// 	message = 
+		// }
 
 		questionDiv.append("<h2>Time Remaining: <span id='time-remaining'>10</span> seconds</h2>");
 		questionDiv.append("<h2>" + message + "</h2>");
-		questionDiv.append("<p>Correct answer: " + quiz[quizCounter].correctAnswer + "</p>");
-		questionDiv.append(quiz[quizCounter].image);
+		questionDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
+		questionDiv.append(questionObj.image);
 
 		$("#quiz").append(questionDiv);
 	}
