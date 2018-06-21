@@ -10,7 +10,7 @@ html, body {
 
 .container {
 	min-height: 100%;
-	/*background-color: lightgrey;*/
+	background-color: lightgrey;
 	width: 80%;
 	margin: 0 auto;
 	text-align: center;
@@ -20,4 +20,11 @@ html, body {
 h1 {
 	margin: 0 0 150px 0;
 	padding: 10px 0;
+}
+
+.answer-options {
+	background-color: #fff;
+	width: 50%;
+	margin: 10px auto;
+	padding: 20px;
 }
