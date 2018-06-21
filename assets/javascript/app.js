@@ -86,15 +86,19 @@ $(document).ready(function() {
 
 	// Checks if user's response is correct
 	function checkAnswer() {
+		// Grab user's answer
 		var userAnswer = $(this).attr("value");
 		
+		// If the user answered correctly...
 		if (userAnswer === quiz[quizCounter].correctAnswer) {
 			answeredCorrectly = true;
 		}
+		// If the user answered wrong...
 		else {
 			answeredCorrectly = false;
 		}
 
+		// Display the answer
 		displayAnswer(quiz[quizCounter]);
 
 	}
@@ -104,19 +108,30 @@ $(document).ready(function() {
 		// Empty the quiz section
 		$("#quiz").empty();
 
+		// Create a div
 		var questionDiv = $("<div>");
-		// var message = "";
+		var message = "Nope"; // the message shown to user
 
-		// if (timer === 0) {
-		// 	message = "Out of Time!";
-		// }
-		// else if (answeredCorrectly) {
-		// 	message = 
-		// }
+		// If user ran out of time, set message to "Out of Time!"
+		if (timer === 0) {
+			message = "Out of Time!";
+		}
+		// If user answered correctly, set message to "Correct"
+		else if (answeredCorrectly) {
+			message = "Correct!"
+		}
 
-		questionDiv.append("<h2>Time Remaining: <span id='time-remaining'>10</span> seconds</h2>");
+		// Append time remaining and message
+		questionDiv.append("<h2>Time Remaining: <span id='time-remaining'>" + timer + "</span> seconds</h2>");
 		questionDiv.append("<h2>" + message + "</h2>");
-		questionDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
+
+		// If the user answered incorrectly OR ran out of time...
+		if (!answeredCorrectly || timer === 0) {
+			// Append correct answer
+			questionDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
+		}
+		
+		// Append image
 		questionDiv.append(questionObj.image);
 
 		$("#quiz").append(questionDiv);
