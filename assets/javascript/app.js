@@ -54,7 +54,6 @@ $(document).ready(function() {
 		unansweredQuestions = 0;
 		questionId = 0; 
 		timerId = 0; 
-		timer = 10; 
 		quizCounter = 0; 
 		answeredCorrectly = false;
 
@@ -65,6 +64,9 @@ $(document).ready(function() {
 
 	// Displays question to user
 	function displayQuestion(questionObj) {
+		// Reset timer
+		timer = 10; 
+
 		// Empty quiz section
 		$("#quiz").empty();
 
