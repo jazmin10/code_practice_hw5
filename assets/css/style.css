@@ -32,3 +32,10 @@ h1 {
 button {
 	padding: 20px 30px;
 }
+
+.answer-options:hover, button:hover {
+	cursor: pointer;
+	background-color: gray;
+	color: #fff;
+	border: 4px solid #fff;
+}
