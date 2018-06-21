@@ -1,0 +1,23 @@
+body {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+	/*background: orange;*/
+	margin: 0;	
+}
+
+.container {
+	min-height: 100%;
+	/*background-color: lightgrey;*/
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+
+h1 {
+	margin: 0 0 150px 0;
+	padding: 10px 0;
+}
