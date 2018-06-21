@@ -64,7 +64,7 @@ $(document).ready(function() {
 
 	// Displays question to user
 	function displayQuestion(questionObj) {
-		// Empty quiz div
+		// Empty quiz section
 		$("#quiz").empty();
 
 		// Create a div
@@ -84,15 +84,25 @@ $(document).ready(function() {
 		$("#quiz").append(questionDiv);
 	}
 
+	// Checks if user's response is correct
+	function checkAnswer() {
+		var userAnswer = $(this).attr("value")
+		
+		// if (userAnswer === quiz[quizCounter].)
+	}
+
 	// Displays answer to user
-	function displayAnswer(questionObj) {
+	function displayAnswer() {
+		// Empty the quiz section
+		$("#quiz").empty();
+
 		var questionDiv = $("<div>");
 		var message = "Out of time!";
 
 		questionDiv.append("<h2>Time Remaining: <span id='time-remaining'>10</span> seconds</h2>");
 		questionDiv.append("<h2>" + message + "</h2>");
-		questionDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
-		questionDiv.append(questionObj.image);
+		questionDiv.append("<p>Correct answer: " + quiz[quizCounter].correctAnswer + "</p>");
+		questionDiv.append(quiz[quizCounter].image);
 
 		$("#quiz").append(questionDiv);
 	}
@@ -104,6 +114,9 @@ $(document).ready(function() {
 
 	// When they click the start button, then start the quiz
 	$("#quiz").on("click", "#start-btn", startQuiz);
+
+	// When a user clicks an answer option, check if user answered correctly
+	$("#quiz").on("click", ".answer-options", checkAnswer);
 
 	// displayAnswer(quiz[0]);
 	// displayQuestion(quiz[0]);
