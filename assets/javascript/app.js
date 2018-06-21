@@ -98,10 +98,12 @@ $(document).ready(function() {
 		// If the user answered correctly...
 		if (userAnswer === quiz[quizCounter].correctAnswer) {
 			answeredCorrectly = true;
+			correctQuestions++;
 		}
 		// If the user answered wrong...
 		else {
 			answeredCorrectly = false;
+			wrongQuestions++;
 		}
 
 		// Display the answer
@@ -118,7 +120,7 @@ $(document).ready(function() {
 		$("#quiz").empty();
 
 		// Create a div
-		var questionDiv = $("<div>");
+		var answerDiv = $("<div>");
 		var message = "Nope"; // the message shown to user
 
 		// If user ran out of time, set message to "Out of Time!"
@@ -131,24 +133,24 @@ $(document).ready(function() {
 		}
 
 		// Append time remaining and message
-		questionDiv.append("<h2>Time Remaining: <span id='time-remaining'>" + timer + "</span> seconds</h2>");
-		questionDiv.append("<h2>" + message + "</h2>");
+		answerDiv.append("<h2>Time Remaining: <span id='time-remaining'>" + timer + "</span> seconds</h2>");
+		answerDiv.append("<h2>" + message + "</h2>");
 
 		// If the user answered incorrectly OR ran out of time...
 		if (!answeredCorrectly || timer === 0) {
 			// Append correct answer
-			questionDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
+			answerDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
 		}
 		
 		// Append image
-		questionDiv.append(questionObj.image);
+		answerDiv.append(questionObj.image);
 
 		// Add answer information to quiz section
-		$("#quiz").append(questionDiv);
+		$("#quiz").append(answerDiv);
 
 		// If we have reached the end of our questions...
 		if (quizCounter === quiz.length - 1) {
-			console.log("End of quiz");
+			setTimeout(endQuiz, answerSeconds * 1000);
 		}
 		// If we still have questions left to answer...
 		else {
@@ -167,12 +169,37 @@ $(document).ready(function() {
 
 		// If time runs out, display the answer
 		if (timer === 0) {
+			unansweredQuestions++;
 			displayAnswer(quiz[quizCounter]);
 		}
 		// Otherwise, update timer
 		else {
 			$("#time-remaining").html(timer);
 		}
+	}
+
+	// When the quiz ends, display quiz results
+	function endQuiz() {
+
+		// Empty quiz section
+		$("#quiz").empty();
+
+		// Create div
+		var endQuizDiv = $("<div>");
+
+		// Append quiz results
+		endQuizDiv.append("<h2>All done! Here's how you did:</h2>");
+		endQuizDiv.append("<p>Correct Answers: " + correctQuestions + "</p>");
+		endQuizDiv.append("<p>Incorrect Answers: " + wrongQuestions + "</p>");
+		endQuizDiv.append("<p>Unaswered Answers: " + unansweredQuestions + "</p>");
+
+		// Add information to quiz section
+		$("#quiz").append(endQuizDiv);
+
+		// Append start over button
+		startButton("START OVER?");
+
+
 	}
 
 // ======== MAIN PROCEDURES ========
@@ -186,6 +213,4 @@ $(document).ready(function() {
 	// When a user clicks an answer option, check if user answered correctly
 	$("#quiz").on("click", ".answer-options", checkAnswer);
 
-	// displayAnswer(quiz[0]);
-	// displayQuestion(quiz[0]);
 });
