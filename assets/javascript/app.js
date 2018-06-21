@@ -36,6 +36,7 @@ $(document).ready(function() {
 	var timer = 10; // holds the number of seconds remaning to answer a question
 	var quizCounter = 0; // to determine which question to display
 	var answeredCorrectly = false; // to help determine if the user answered correctly
+	var answerSeconds = 3; // number of seconds you want to display answer
 
 // ======== FUNCTIONS ========
 
@@ -82,6 +83,9 @@ $(document).ready(function() {
 
 		// Add the question information to the quiz section
 		$("#quiz").append(questionDiv);
+
+		// After every second, update the timer
+		timerId = setInterval(timerCountdown, 1000);
 	}
 
 	// Checks if user's response is correct
@@ -105,6 +109,9 @@ $(document).ready(function() {
 
 	// Displays answer to user
 	function displayAnswer(questionObj) {
+		// Stop the timer
+		clearInterval(timerId);
+
 		// Empty the quiz section
 		$("#quiz").empty();
 
@@ -146,7 +153,23 @@ $(document).ready(function() {
 			quizCounter++;
 
 			// Display the next question after certain seconds
-			setTimeout(displayQuestion, 3000, quiz[quizCounter]);
+				// The third parameter is the argument we are passing to displayQuestion
+				// Turning answerSeconds to milliseconds
+			setTimeout(displayQuestion, answerSeconds * 1000, quiz[quizCounter]);
+		}
+	}
+
+	// Timer functionality
+	function timerCountdown() {
+		timer--;
+
+		// If time runs out, display the answer
+		if (timer === 0) {
+			displayAnswer(quiz[quizCounter]);
+		}
+		// Otherwise, update timer
+		else {
+			$("#time-remaining").html(timer);
 		}
 	}
 
