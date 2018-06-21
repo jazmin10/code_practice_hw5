@@ -21,5 +21,18 @@ $(document).ready(function() {
 		$("#quiz").append(questionDiv);
 	}
 
+	function displayAnswer(questionObj) {
+		var questionDiv = $("<div>");
+		var message = "Out of time!";
+
+		questionDiv.append("<h2>Time Remaining: <span id='time-remaining'>10</span> seconds</h2>");
+		questionDiv.append("<h2>" + message + "</h2>");
+		questionDiv.append("<p>Correct answer: " + questionObj.correctAnswer + "</p>");
+		questionDiv.append(questionObj.image);
+
+		$("#quiz").append(questionDiv);
+	}
+
+	// displayAnswer(quiz[0]);
 	// displayQuestion(quiz[0]);
 });
